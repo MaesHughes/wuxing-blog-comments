@@ -1,0 +1,105 @@
+{
+  "version": "0.1.0",
+  "providers": {
+    "anthropic": {
+      "api_key": "${ANTHROPIC_API_KEY}",
+      "model": "claude-3-5-sonnet-20241022",
+      "max_tokens": 4096,
+      "temperature": 0.3
+    },
+    "openai": {
+      "api_key": "${OPENAI_API_KEY}",
+      "model": "gpt-4",
+      "max_tokens": 4096,
+      "temperature": 0.3
+    }
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/tmp/mcp-servers-filesystem"
+      ]
+    },
+    "database": {
+      "command": "node",
+      "args": [
+        "/path/to/mcp-server-db",
+        "--connection-string",
+        "${DATABASE_URL}"
+      ]
+    },
+    "git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git",
+        "/path/to/repo"
+      ]
+    }
+  },
+  "contextDirectory": "${CONTEXT_DIRECTORY:-}",
+  "logging": {
+    "level": "warn",
+    "file": "${HOME}/.config/claude-desktop/logs/claude-desktop.log",
+    "maxFileSize": "50MB",
+    "maxFiles": 3
+  },
+  "performance": {
+    "maxConcurrentRequests": 10,
+    "requestTimeout": 60000,
+    "cacheEnabled": true,
+    "cacheSize": 5000,
+    "compressionEnabled": true,
+    "streamingEnabled": true
+  },
+  "features": {
+    "autoSave": true,
+    "autoSaveInterval": 30000,
+    "theme": "dark",
+    "fontSize": 16,
+    "lineWrap": false,
+    "wordWrap": true,
+    "showLineNumbers": true,
+    "minimap": true
+  },
+  "security": {
+    "allowLocalhost": true,
+    "allowedHosts": [
+      "localhost",
+      "127.0.0.1",
+      "0.0.0.0"
+    ],
+    "enableSandbox": true,
+    "allowedCommands": [
+      "git",
+      "npm",
+      "node",
+      "python",
+      "pip"
+    ]
+  },
+  "extensions": {
+    "enabled": true,
+    "directory": "${HOME}/.config/claude-desktop/extensions",
+    "autoUpdate": false,
+    "preload": [
+      "mcp-server-filesystem",
+      "mcp-server-database",
+      "mcp-server-git"
+    ]
+  },
+  "ui": {
+    "showStatus": true,
+    "showMetrics": false,
+    "compactMode": false,
+    "hideMenuBar": false
+  },
+  "experimental": {
+    "multiProvider": true,
+    "parallelProcessing": true,
+    "smartCaching": true
+  }
+}
