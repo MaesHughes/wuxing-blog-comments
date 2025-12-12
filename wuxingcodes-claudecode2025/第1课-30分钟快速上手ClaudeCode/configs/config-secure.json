@@ -1,0 +1,45 @@
+{
+  "model": "claude-3-5-sonnet-20241022",
+  "permissions": {
+    "allowedTools": [
+      "Read(./src/**/*)",
+      "Edit(./src/**/*.{js,ts,jsx,tsx})",
+      "Bash(git:status)",
+      "Bash(git:add)",
+      "Bash(npm:test)",
+      "Bash(npm:lint)"
+    ],
+    "deniedTools": [
+      "Edit(**/config/**/*)",
+      "Edit(**/.env*)",
+      "Edit(**/*key*)",
+      "Bash(rm:*)",
+      "Bash(sudo:*)"
+    ],
+    "permissionMode": "strict"
+  },
+  "security": {
+    "scanSecrets": true,
+    "blockSecretPatterns": [
+      "password",
+      "secret",
+      "token",
+      "key",
+      "credential",
+      "api_key",
+      "apikey"
+    ],
+    "allowedDomains": [
+      "api.anthropic.com",
+      "github.com",
+      "npmjs.org",
+      "pypi.org",
+      "registry.npmjs.org"
+    ]
+  },
+  "sandbox": {
+    "allowUnsandboxedCommands": false,
+    "allowedPaths": ["./src", "./tests"],
+    "blockSystemPaths": true
+  }
+}

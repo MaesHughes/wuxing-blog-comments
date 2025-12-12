@@ -1,0 +1,29 @@
+{
+  "model": "claude-3-5-sonnet-20241022",
+  "plugins": {
+    "enabled": ["git", "eslint", "prettier", "jest"],
+    "autoLoad": true
+  },
+  "hooks": {
+    "PostEdit": [
+      {
+        "matcher": "**/*.{js,jsx,ts,tsx}",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx eslint --fix {{file}}"
+          },
+          {
+            "type": "command",
+            "command": "npx prettier --write {{file}}"
+          }
+        ]
+      }
+    ]
+  },
+  "templates": {
+    "reactComponent": "src/components/{{name}}/{{name}}.tsx",
+    "styles": "src/components/{{name}}/{{name}}.module.css",
+    "test": "src/components/{{name}}/{{name}}.test.tsx"
+  }
+}

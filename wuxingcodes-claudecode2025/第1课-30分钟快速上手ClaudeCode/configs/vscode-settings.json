@@ -1,0 +1,15 @@
+{
+  "claudecode.model": "claude-3-5-sonnet-20241022",
+  "claudecode.autoSave": true,
+  "claudecode.theme": "dark",
+  "claudecode.fontSize": 14,
+  "claudecode.keybindings": "vscode",
+  "claudecode.statusLine.enabled": true,
+  "claudecode.integrated": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

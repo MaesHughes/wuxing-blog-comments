@@ -1,0 +1,30 @@
+{
+  "model": "claude-3-5-sonnet-20241022",
+  "plugins": {
+    "enabled": ["git", "pytest", "black", "mypy"],
+    "autoLoad": true
+  },
+  "hooks": {
+    "PostEdit": [
+      {
+        "matcher": "**/*.py",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -m black {{file}}"
+          },
+          {
+            "type": "command",
+            "command": "python -m mypy {{file}}"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "database": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-postgres", "postgresql://localhost/mydb"]
+    }
+  }
+}

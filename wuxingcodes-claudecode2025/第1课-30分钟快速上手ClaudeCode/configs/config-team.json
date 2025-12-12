@@ -1,0 +1,23 @@
+{
+  "model": "claude-3-5-sonnet-20241022",
+  "team": {
+    "sharedConfig": true,
+    "configRepo": "https://github.com/company/claude-config",
+    "syncInterval": "1h"
+  },
+  "git": {
+    "autoCommit": false,
+    "commitTemplate": "{type}: {message}\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+    "branchNaming": "feature/{{ticket}}-{{description}}",
+    "prTemplate": "## Description\n\n## Changes\n\n## Testing\n\n"
+  },
+  "codeReview": {
+    "autoReview": true,
+    "rules": ["security", "performance", "best-practices", "style"],
+    "autoFix": ["style", "best-practices"]
+  },
+  "companyAnnouncements": {
+    "enabled": true,
+    "message": "Welcome to Company's ClaudeCode setup! Check our internal docs for guidelines."
+  }
+}
