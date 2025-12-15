@@ -1,0 +1,134 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "github-mcp-server",
+      "args": [
+        "--auto-pr-create",
+        "--auto-review-assign"
+      ],
+      "oauth": {
+        "clientId": "${GITHUB_CLIENT_ID}",
+        "clientSecret": "${GITHUB_CLIENT_SECRET}",
+        "scopes": [
+          "repo",
+          "issues",
+          "pull_requests",
+          "actions",
+          "workflows"
+        ]
+      },
+      "description": "GitHub集成服务，用于代码托管、协作和CI/CD",
+      "enabled": true
+    },
+    "filesystem": {
+      "command": "filesystem-mcp-server",
+      "args": [
+        ".",
+        "--exclude",
+        "node_modules,.git,dist,build",
+        "--max-size",
+        "10MB"
+      ],
+      "description": "文件系统操作服务，用于文件管理和组织",
+      "enabled": true
+    },
+    "database": {
+      "command": "sqlite-mcp-server",
+      "args": [
+        "./data/app.db",
+        "--backup",
+        "./backups/",
+        "--backup-interval",
+        "3600"
+      ],
+      "description": "SQLite数据库服务，用于数据查询和管理",
+      "enabled": true
+    },
+    "context7": {
+      "command": "context7-mcp-server",
+      "args": [
+        "--cache-size",
+        "1000",
+        "--update-interval",
+        "3600",
+        "--preferred-sources",
+        "official,community,stack-overflow"
+      ],
+      "description": "Context7文档查询服务，获取技术文档和代码示例",
+      "enabled": true
+    },
+    "web-search": {
+      "command": "web-search-mcp-server",
+      "args": [
+        "--provider",
+        "google",
+        "--max-results",
+        "10",
+        "--safe-search",
+        "moderate"
+      ],
+      "description": "网络搜索服务，获取最新技术信息和解决方案",
+      "enabled": true
+    },
+    "puppeteer": {
+      "command": "puppeteer-mcp-server",
+      "args": [
+        "--headless",
+        "--timeout",
+        "30000",
+        "--viewport",
+        "1920x1080"
+      ],
+      "description": "浏览器自动化服务，用于Web测试和截图",
+      "enabled": false
+    },
+    "memory": {
+      "command": "memory-mcp-server",
+      "args": [
+        "--storage-path",
+        "./.claude/memory",
+        "--max-entries",
+        "10000"
+      ],
+      "description": "记忆管理服务，保存和检索重要信息",
+      "enabled": true
+    },
+    "analytics": {
+      "command": "analytics-mcp-server",
+      "args": [
+        "--data-source",
+        "./analytics",
+        "--metrics",
+        "performance,errors,usage"
+      ],
+      "description": "分析服务，监控应用性能和用户行为",
+      "enabled": false
+    }
+  },
+  "globalSettings": {
+    "maxConcurrentRequests": 5,
+    "defaultTimeout": 30000,
+    "retryAttempts": 3,
+    "logLevel": "info"
+  },
+  "serverGroups": {
+    "development": [
+      "github",
+      "filesystem",
+      "database",
+      "context7"
+    ],
+    "testing": [
+      "github",
+      "filesystem",
+      "database",
+      "puppeteer"
+    ],
+    "production": [
+      "github",
+      "database",
+      "analytics",
+      "memory"
+    ]
+  }
+}
