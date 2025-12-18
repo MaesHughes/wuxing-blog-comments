@@ -1,0 +1,130 @@
+{
+    "name": "claudecode-plugin-template",
+    "displayName": "ClaudeCode Plugin Template",
+    "description": "ClaudeCode插件开发模板 - 快速开始插件开发",
+    "version": "1.0.0",
+    "publisher": "wuxingcodes",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MaesHughes/wuxing-blog-comments"
+    },
+    "engines": {
+        "claudecode": "^2.0.0"
+    },
+    "categories": [
+        "Other",
+        "Snippets",
+        "Programming Languages"
+    ],
+    "keywords": [
+        "template",
+        "plugin",
+        "claudecode",
+        "tutorial"
+    ],
+    "activationEvents": [
+        "onCommand:template.helloWorld",
+        "onCommand:template.showInfo",
+        "onCommand:template.createSnippet",
+        "onLanguage:javascript",
+        "onLanguage:typescript"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "template.helloWorld",
+                "title": "Hello World",
+                "category": "Template"
+            },
+            {
+                "command": "template.showInfo",
+                "title": "Show Plugin Info",
+                "category": "Template"
+            },
+            {
+                "command": "template.createSnippet",
+                "title": "Create Custom Snippet",
+                "category": "Template"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "template.createSnippet",
+                    "when": "editorHasSelection",
+                    "group": "1_modification"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "template.createSnippet",
+                    "when": "editorHasSelection"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "template.helloWorld",
+                "key": "ctrl+shift+h",
+                "mac": "cmd+shift+h"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "javascript",
+                "path": "./snippets/javascript.json"
+            },
+            {
+                "language": "typescript",
+                "path": "./snippets/typescript.json"
+            }
+        ],
+        "configuration": {
+            "title": "Template Plugin",
+            "properties": {
+                "template.greeting": {
+                    "type": "string",
+                    "default": "Hello",
+                    "description": "设置问候语"
+                },
+                "template.enableNotifications": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "是否启用通知"
+                },
+                "template.snippetPrefix": {
+                    "type": "string",
+                    "default": "tpl",
+                    "description": "代码片段前缀"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js",
+        "package": "vsce package",
+        "publish": "vsce publish"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.75.0",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "16.x",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "eslint": "^8.28.0",
+        "mocha": "^10.1.0",
+        "typescript": "^4.9.4",
+        "@vscode/test-electron": "^2.2.0",
+        "vsce": "^2.15.0"
+    },
+    "dependencies": {
+        "axios": "^1.3.0"
+    }
+}
