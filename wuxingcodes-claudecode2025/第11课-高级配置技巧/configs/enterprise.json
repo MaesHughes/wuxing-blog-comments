@@ -1,0 +1,62 @@
+{
+  "permissions": {
+    "allowed_dirs": ["./src", "./tests", "./docs"],
+    "allowed_commands": ["git", "npm", "pytest"],
+    "require_confirmation": true,
+    "audit_logging": true
+  },
+  "model": "opusplan",
+  "rbac": {
+    "roles": {
+      "developer": {
+        "permissions": ["read_code", "write_code", "run_tests"]
+      },
+      "admin": {
+        "permissions": ["read_code", "write_code", "deploy", "manage_users"]
+      }
+    },
+    "default_role": "developer"
+  },
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "boundaries": ["/workspace", "/tmp"]
+    },
+    "network": {
+      "allowed_domains": [
+        "api.github.com",
+        "registry.npmjs.org",
+        "company-api.com"
+      ]
+    }
+  },
+  "security": {
+    "mfa": true,
+    "session_timeout": 1800,
+    "ip_whitelist": ["192.168.1.0/24", "10.0.0.0/8"]
+  },
+  "monitoring": {
+    "enabled": true,
+    "metrics": [
+      "response_time",
+      "token_usage",
+      "security_events"
+    ],
+    "alerting": {
+      "webhook": "https://alerts.company.com/webhook",
+      "email": "devops@company.com"
+    }
+  },
+  "performance": {
+    "prompt_caching": true,
+    "auto_compact": {
+      "enabled": true,
+      "threshold": 0.7
+    }
+  },
+  "compliance": {
+    "audit_retention": 2555,  // 7年
+    "data_encryption": true,
+    "access_logs": true
+  }
+}

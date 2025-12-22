@@ -1,0 +1,65 @@
+{
+  "permissions": {
+    "allowed_dirs": ["./src", "./tests", "./docs", "./config", "./scripts"],
+    "denied_dirs": ["./__pycache__", "./venv", "./env", "./.pytest_cache"],
+    "allowed_commands": [
+      "python",
+      "pip",
+      "pytest",
+      "django-admin",
+      "flask",
+      "python -m",
+      "black",
+      "flake8",
+      "mypy",
+      "coverage"
+    ],
+    "denied_commands": [
+      "sudo pip",
+      "pip install --user",
+      "rm -rf ./",
+      "chmod 777"
+    ],
+    "require_confirmation": [
+      "pip install",
+      "python manage.py migrate",
+      "python manage.py collectstatic",
+      "pytest --cov"
+    ]
+  },
+  "model": "opus",
+  "context": {
+    "framework": "Django",
+    "language": "Python",
+    "database": "PostgreSQL",
+    "orm": "SQLAlchemy",
+    "testing_framework": "Pytest",
+    "version": "3.11"
+  },
+  "hooks": {
+    "pre_tool_use": "python scripts/validate.py",
+    "post_edit": [
+      "black --check .",
+      "flake8 .",
+      "mypy ."
+    ]
+  },
+  "environment": {
+    "python_path": "./src",
+    "venv_path": "./venv",
+    "requirements_file": "./requirements.txt"
+  },
+  "performance": {
+    "prompt_caching": true,
+    "auto_compact": {
+      "enabled": true,
+      "threshold": 0.7,
+      "interval": 240
+    }
+  },
+  "security": {
+    "check_dependencies": true,
+    "scan_secrets": true,
+    "validate_imports": true
+  }
+}

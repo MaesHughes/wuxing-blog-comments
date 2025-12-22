@@ -1,0 +1,47 @@
+{
+  "permissions": {
+    "allowed_dirs": [
+      "./src",
+      "./tests",
+      "./docs",
+      "./config"
+    ],
+    "denied_dirs": [
+      "~/.ssh",
+      "/etc",
+      "~/.config"
+    ],
+    "allowed_commands": [
+      "git",
+      "npm",
+      "node",
+      "python",
+      "pytest",
+      "eslint"
+    ],
+    "denied_commands": [
+      "sudo",
+      "su",
+      "rm -rf",
+      "chmod 777"
+    ],
+    "require_confirmation": true
+  },
+  "model": "sonnet",
+  "context": {
+    "framework": "General",
+    "language": "TypeScript"
+  },
+  "performance": {
+    "prompt_caching": true,
+    "auto_compact": {
+      "enabled": true,
+      "threshold": 0.8,
+      "interval": 300
+    }
+  },
+  "security": {
+    "audit_logging": true,
+    "session_timeout": 3600
+  }
+}

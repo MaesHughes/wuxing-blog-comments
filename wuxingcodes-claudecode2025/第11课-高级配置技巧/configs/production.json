@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "default_deny": true,
+    "allowed_dirs": ["./src"],
+    "allowed_commands": ["git", "npm run build"],
+    "require_confirmation": true,
+    "audit_logging": true
+  },
+  "model": "opus",
+  "sandbox": {
+    "enabled": true,
+    "network": {
+      "allowed_domains": [
+        "api.github.com",
+        "registry.npmjs.org"
+      ]
+    }
+  },
+  "security": {
+    "mfa": true,
+    "session_timeout": 1800,
+    "require_confirmation_for_all": true
+  },
+  "performance": {
+    "prompt_caching": true,
+    "auto_compact": {
+      "enabled": true,
+      "threshold": 0.7,
+      "interval": 180
+    }
+  },
+  "audit": {
+    "enabled": true,
+    "log_level": "info",
+    "export_metrics": true
+  }
+}

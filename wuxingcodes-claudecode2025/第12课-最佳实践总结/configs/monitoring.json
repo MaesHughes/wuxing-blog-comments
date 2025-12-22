@@ -1,0 +1,123 @@
+{
+  "monitoring_config": {
+    "metrics_collection": {
+      "enabled": true,
+      "interval": 30000,
+      "retention_period": 2592000,
+      "metrics": [
+        "response_time",
+        "throughput",
+        "error_rate",
+        "cpu_usage",
+        "memory_usage",
+        "disk_usage",
+        "network_io"
+      ]
+    },
+    "alerting": {
+      "enabled": true,
+      "channels": [
+        {
+          "type": "email",
+          "config": {
+            "smtp_server": "smtp.company.com",
+            "smtp_port": 587,
+            "username": "alerts@company.com",
+            "recipients": ["ops@company.com", "dev@company.com"]
+          }
+        },
+        {
+          "type": "slack",
+          "config": {
+            "webhook_url": "https://hooks.slack.com/services/...",
+            "channel": "#alerts",
+            "username": "ClaudeCode Monitor"
+          }
+        }
+      ],
+      "rules": [
+        {
+          "name": "high_response_time",
+          "condition": "avg_response_time > 3.0",
+          "duration": "5m",
+          "severity": "warning",
+          "message": "响应时间过长: {{value}}s"
+        },
+        {
+          "name": "high_error_rate",
+          "condition": "error_rate > 0.05",
+          "duration": "2m",
+          "severity": "critical",
+          "message": "错误率过高: {{value}}%"
+        },
+        {
+          "name": "service_down",
+          "condition": "availability < 0.995",
+          "duration": "1m",
+          "severity": "critical",
+          "message": "服务可用性低: {{value}}%"
+        }
+      ]
+    },
+    "dashboard": {
+      "enabled": true,
+      "refresh_interval": 30,
+      "panels": [
+        {
+          "title": "系统概览",
+          "metrics": ["system_health", "service_status", "error_rate"],
+          "type": "summary"
+        },
+        {
+          "title": "性能指标",
+          "metrics": ["response_time", "throughput", "resource_usage"],
+          "type": "timeseries"
+        },
+        {
+          "title": "告警历史",
+          "metrics": ["alert_count", "alert_severity", "resolution_time"],
+          "type": "table"
+        }
+      ]
+    },
+    "logging": {
+      "level": "info",
+      "format": "json",
+      "outputs": [
+        {
+          "type": "file",
+          "path": "/var/log/claudecode/monitoring.log",
+          "rotation": "daily",
+          "retention": 7
+        },
+        {
+          "type": "elasticsearch",
+          "endpoint": "http://elasticsearch:9200",
+          "index": "claudecode-monitoring"
+        }
+      ]
+    },
+    "health_checks": {
+      "enabled": true,
+      "interval": 60000,
+      "checks": [
+        {
+          "name": "api_health",
+          "endpoint": "/health",
+          "timeout": 5000,
+          "expected_status": 200
+        },
+        {
+          "name": "database_connection",
+          "type": "database",
+          "timeout": 3000
+        },
+        {
+          "name": "external_api",
+          "endpoint": "https://api.anthropic.com",
+          "timeout": 10000
+        }
+      ]
+    }
+  }
+}

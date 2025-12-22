@@ -1,0 +1,54 @@
+{
+  "permissions": {
+    "allowed_dirs": ["./src", "./public", "./tests", "./docs", "./scripts"],
+    "denied_dirs": ["./node_modules", "./dist", "./build"],
+    "allowed_commands": [
+      "npm",
+      "yarn",
+      "pnpm",
+      "node",
+      "npx",
+      "git",
+      "eslint",
+      "prettier",
+      "jest",
+      "vite"
+    ],
+    "denied_commands": [
+      "npm install --global",
+      "rm -rf ./",
+      "chmod 777"
+    ],
+    "require_confirmation": [
+      "npm run build",
+      "npm publish",
+      "npm run deploy",
+      "git push origin main"
+    ]
+  },
+  "model": "sonnet",
+  "context": {
+    "framework": "React",
+    "language": "TypeScript",
+    "build_tool": "Vite",
+    "testing_framework": "Jest",
+    "styling": "CSS Modules"
+  },
+  "hooks": {
+    "pre_edit": "npm run lint -- --fix",
+    "post_edit": "npm run type-check",
+    "pre_tool_use": "node scripts/validate.js"
+  },
+  "performance": {
+    "prompt_caching": true,
+    "auto_compact": {
+      "enabled": true,
+      "threshold": 0.8,
+      "interval": 300
+    }
+  },
+  "security": {
+    "audit_dependencies": true,
+    "check_vulnerabilities": true
+  }
+}

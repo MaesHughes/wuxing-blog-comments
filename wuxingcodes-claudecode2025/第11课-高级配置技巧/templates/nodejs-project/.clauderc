@@ -1,0 +1,76 @@
+{
+  "permissions": {
+    "allowed_dirs": ["./src", "./tests", "./docs", "./config", "./api", "./routes"],
+    "denied_dirs": ["./node_modules", "./dist", "./coverage"],
+    "allowed_commands": [
+      "node",
+      "npm",
+      "yarn",
+      "npx",
+      "pm2",
+      "nodemon",
+      "mocha",
+      "jest",
+      "eslint"
+    ],
+    "denied_commands": [
+      "npm install --global",
+      "rm -rf ./",
+      "chmod 777",
+      "node *with --inspect"
+    ],
+    "require_confirmation": [
+      "npm install",
+      "npm run deploy",
+      "pm2 reload",
+      "pm2 restart"
+    ]
+  },
+  "model": "sonnet",
+  "context": {
+    "framework": "Express.js",
+    "language": "TypeScript",
+    "runtime": "Node.js",
+    "database": "MongoDB",
+    "authentication": "JWT",
+    "api_design": "RESTful"
+  },
+  "hooks": {
+    "pre_tool_use": "node scripts/security-check.js",
+    "post_edit": [
+      "npm run lint -- --fix",
+      "npm run test"
+    ]
+  },
+  "environment": {
+    "node_version": ">=18.0.0",
+    "package_manager": "npm",
+    "ts_config": "./tsconfig.json"
+  },
+  "mcpServers": {
+    "database": {
+      "command": "node",
+      "args": ["scripts/mongodb-mcp.js"],
+      "env": {
+        "MONGODB_URI": "mongodb://localhost:27017"
+      }
+    },
+    "api": {
+      "command": "node",
+      "args": ["scripts/api-docs-mcp.js"]
+    }
+  },
+  "performance": {
+    "prompt_caching": true,
+    "auto_compact": {
+      "enabled": true,
+      "threshold": 0.75,
+      "interval": 300
+    }
+  },
+  "security": {
+    "check_vulnerabilities": true,
+    "scan_dependencies": true,
+    "validate_jwt": true
+  }
+}

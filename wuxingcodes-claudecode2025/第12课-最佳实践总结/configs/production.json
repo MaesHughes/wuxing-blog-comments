@@ -1,0 +1,61 @@
+{
+  "model": "claude-3-sonnet-20240229",
+  "max_tokens": 4096,
+  "temperature": 0.1,
+  "timeout": 60000,
+  "retry_config": {
+    "max_attempts": 5,
+    "backoff_factor": 2,
+    "retry_on_timeout": true,
+    "jitter": true
+  },
+  "cache": {
+    "enabled": true,
+    "max_size": "2GB",
+    "ttl": 3600,
+    "compression": true
+  },
+  "logging": {
+    "level": "warn",
+    "file": "/var/log/claude-production.log",
+    "max_size": "100MB",
+    "backup_count": 5,
+    "structured": true
+  },
+  "security": {
+    "audit_enabled": true,
+    "log_requests": true,
+    "strict_permissions": true,
+    "api_rate_limit": {
+      "requests_per_minute": 1000,
+      "burst_size": 200
+    }
+  },
+  "performance": {
+    "context_window": 12000,
+    "parallel_requests": true,
+    "batch_processing": true,
+    "connection_pool": {
+      "max_connections": 100,
+      "idle_timeout": 30000,
+      "max_lifetime": 300000
+    }
+  },
+  "monitoring": {
+    "metrics_enabled": true,
+    "health_check": {
+      "enabled": true,
+      "interval": 30000,
+      "timeout": 5000
+    },
+    "alerting": {
+      "enabled": true,
+      "channels": ["email", "slack", "pagerduty"],
+      "thresholds": {
+        "response_time": 5000,
+        "error_rate": 0.05,
+        "cpu_usage": 0.8
+      }
+    }
+  }
+}
